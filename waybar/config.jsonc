@@ -79,7 +79,7 @@
     },
 
     "disk#home": {
-        "format": " {percentage_used}%",
+        "format": " {percentage_used}%  ",
         "path": "/home",
         "interval": 30,
         "tooltip-format": "/home : {used} / {total} used"
