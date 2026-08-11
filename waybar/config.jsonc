@@ -13,7 +13,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
 
     "hyprland/workspaces": {
         "active-only": false,
@@ -69,6 +69,20 @@
     "memory": {
         "format": "{percentage}% 󰾆",
         "interval": 10
+    },
+
+    "disk#root": {
+        "format": "󰋊 {percentage_used}%",
+        "path": "/",
+        "interval": 30,
+        "tooltip-format": "/ : {used} / {total} used"
+    },
+
+    "disk#home": {
+        "format": " {percentage_used}%",
+        "path": "/home",
+        "interval": 30,
+        "tooltip-format": "/home : {used} / {total} used"
     },
 
     // No-op on hosts without a battery (desktop) - waybar hides the module.
