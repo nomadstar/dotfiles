@@ -43,6 +43,7 @@ window#waybar {
 #network,
 #cpu,
 #memory,
+#disk,
 #battery,
 #tray {
     padding: 0 10px;
