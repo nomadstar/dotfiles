@@ -21,12 +21,18 @@ window#waybar {
 }
 
 #workspaces button.active {
-    color: #33ccff;
+    color: #00ff41;
 }
 
 #workspaces button:hover {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
+}
+
+#window {
+    padding: 0 10px;
+    margin: 4px 2px;
+    color: #00ff41;
 }
 
 #clock,
