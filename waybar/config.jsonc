@@ -13,7 +13,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
+    "modules-right": ["pulseaudio", "network", "backlight", "keyboard-state", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
 
     "hyprland/workspaces": {
         "active-only": false,
@@ -59,6 +59,26 @@
         "format-disconnected": "󰌙 disconnected",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "tooltip-format": "{ipaddr}/{cidr}"
+    },
+
+    // No-op on hosts without a backlight device (desktop) - waybar hides
+    // the module, same as "battery" below.
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
     },
 
     "cpu": {
