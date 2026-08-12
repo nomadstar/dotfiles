@@ -13,7 +13,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "backlight", "keyboard-state", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
+    "modules-right": ["custom/wifi-mac", "pulseaudio", "network", "backlight", "keyboard-state", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
 
     "hyprland/workspaces": {
         "active-only": false,
@@ -50,6 +50,17 @@
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
         "scroll-step": 5
+    },
+
+    // Wi-Fi settings dropdown (modules/desktop/wifi-panel.nix) - right now
+    // this only has the scan MAC randomization toggle needed for
+    // Miracast/fluxcast (see hosts/laptop/default.nix for why), but it's
+    // meant to grow into a general Wi-Fi settings menu.
+    "custom/wifi-mac": {
+        "exec": "if [ -f /etc/NetworkManager/conf.d/99-wifi-mac-random-off.conf ]; then printf '{\"text\":\"󰐐 MAC\",\"class\":\"warning\",\"tooltip\":\"Randomización de MAC (scan): OFF - modo Miracast\"}'; else printf '{\"text\":\"󰖩 MAC\",\"class\":\"ok\",\"tooltip\":\"Randomización de MAC (scan): ON - default seguro\"}'; fi",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "wifi-panel"
     },
 
     "network": {

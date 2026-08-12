@@ -47,6 +47,7 @@ window#waybar {
 #memory,
 #disk,
 #battery,
+#custom-wifi-mac,
 #tray {
     padding: 0 10px;
     margin: 4px 2px;
@@ -68,6 +69,11 @@ window#waybar {
 
 #battery.charging {
     color: #00ff99;
+}
+
+#custom-wifi-mac.warning {
+    color: #ffb000;
+    border-color: rgba(255, 176, 0, 0.4);
 }
 
 #pulseaudio.muted {
