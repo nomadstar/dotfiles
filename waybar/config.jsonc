@@ -13,7 +13,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/wifi-mac", "pulseaudio", "network", "backlight", "keyboard-state", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
+    "modules-right": ["custom/devshell", "pulseaudio", "network", "backlight", "keyboard-state", "cpu", "memory", "disk#root", "disk#home", "battery", "tray"],
 
     "hyprland/workspaces": {
         "active-only": false,
@@ -52,24 +52,31 @@
         "scroll-step": 5
     },
 
-    // Wi-Fi settings dropdown (modules/desktop/wifi-panel.nix) - right now
-    // this only has the scan MAC randomization toggle needed for
-    // Miracast/fluxcast (see hosts/laptop/default.nix for why), but it's
-    // meant to grow into a general Wi-Fi settings menu.
-    "custom/wifi-mac": {
-        "exec": "if [ -f /etc/NetworkManager/conf.d/99-wifi-mac-random-off.conf ]; then printf '{\"text\":\"󰐐 MAC\",\"class\":\"warning\",\"tooltip\":\"Randomización de MAC (scan): OFF - modo Miracast\"}'; else printf '{\"text\":\"󰖩 MAC\",\"class\":\"ok\",\"tooltip\":\"Randomización de MAC (scan): ON - default seguro\"}'; fi",
-        "return-type": "json",
-        "interval": 5,
-        "on-click": "wifi-panel"
+    // devShell picker (modules/desktop/devshell-picker.nix) - lists this
+    // flake's `nix develop .#<name>` shells (README.md's "Optional
+    // devShells") in a wofi menu and opens the chosen one in a terminal,
+    // so you don't have to remember the exact command/shell name.
+    "custom/devshell": {
+        "format": "❄",
+        "tooltip": "nix develop - click para elegir un devShell",
+        "on-click": "devshell-picker"
     },
 
+    // Left-click opens nm-connection-editor (full network settings).
+    // Right-click opens the wofi panel from modules/desktop/wifi-panel.nix:
+    // Wi-Fi scan MAC randomization toggle (needed for Miracast, see
+    // hosts/laptop/default.nix for why) + a shortcut to OpenSnitch. nm-applet
+    // itself runs in the tray (this config's hyprland.conf exec-once) since
+    // it has no way to pop its own menu on demand from outside that icon.
     "network": {
         "interval": 1,
         "format-wifi": "{icon} {essid}  {bandwidthUpBytes}  {bandwidthDownBytes}",
         "format-ethernet": "󰌘 {ifname}  {bandwidthUpBytes}  {bandwidthDownBytes}",
         "format-disconnected": "󰌙 disconnected",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "tooltip-format": "{ipaddr}/{cidr}"
+        "tooltip-format": "{ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor",
+        "on-click-right": "wifi-panel"
     },
 
     // No-op on hosts without a backlight device (desktop) - waybar hides
