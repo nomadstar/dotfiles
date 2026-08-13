@@ -62,21 +62,17 @@
         "on-click": "devshell-picker"
     },
 
-    // Left-click opens nm-connection-editor (full network settings).
-    // Right-click opens the wofi panel from modules/desktop/wifi-panel.nix:
-    // Wi-Fi scan MAC randomization toggle (needed for Miracast, see
-    // hosts/laptop/default.nix for why) + a shortcut to OpenSnitch. nm-applet
-    // itself runs in the tray (this config's hyprland.conf exec-once) since
-    // it has no way to pop its own menu on demand from outside that icon.
+    // No click handler: nm-applet already sits in the tray (this config's
+    // hyprland.conf exec-once) and its own icon there is directly
+    // clickable for the network menu, so a redundant on-click here isn't
+    // needed.
     "network": {
         "interval": 1,
         "format-wifi": "{icon} {essid}  {bandwidthUpBytes}  {bandwidthDownBytes}",
         "format-ethernet": "󰌘 {ifname}  {bandwidthUpBytes}  {bandwidthDownBytes}",
         "format-disconnected": "󰌙 disconnected",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "tooltip-format": "{ipaddr}/{cidr}",
-        "on-click": "nm-connection-editor",
-        "on-click-right": "wifi-panel"
+        "tooltip-format": "{ipaddr}/{cidr}"
     },
 
     // No-op on hosts without a backlight device (desktop) - waybar hides
